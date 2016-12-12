@@ -114,7 +114,7 @@ links:
   谷歌镜像: http://dir.scmor.com/google/
 
 #### Comment
-duoshuo_shortname: true   ## e.g. wuchong   your duoshuo short name.
+duoshuo_shortname: false   ## e.g. wuchong   your duoshuo short name.
 disqus_shortname: false   ## e.g. wuchong   your disqus short name.
 
 #### Share button
