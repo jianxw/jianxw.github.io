@@ -6,12 +6,12 @@ tags:
 - spring boot
 categories: redis
 ---
+
 　　Redis是使用最广泛的内存数据存储，Redis支持更丰富的数据结构，例如hashes, lists, sets等，同时支持数据持久化，同时Redis还提供一些类数据库的特性，比如事务，HA，主从库。本文主要介绍redis的安装，以及结合spring boot来连接redis集群环境进行数据的处理，同时介绍redis通过Cacheable（缓存）、CachePut（更新缓存）、CacheEvict（删除缓存），希望对要在spring boot中使用redis或者用来缓存对象有一定的帮助。
 
 <!-- more -->
 
-
-####安装指南
+#### 安装指南
 
 
 下载地址：http://download.redis.io/releases/redis-3.2.6.tar.gz
@@ -23,12 +23,14 @@ categories: redis
 ```
 
 启动redis
+
 ```bash
 [root@dev opt]# cd redis-3.2.6/src
 [root@dev src]# ./redis-server &
 ```
 
 如果出现如下的内容表示启动成功
+
 ```bash
                 _._
            _.-``__ ''-._
@@ -56,6 +58,7 @@ categories: redis
 ```
 
 连接redis并且保存数据
+
 ```bash
 [root@dev src]# cd redis-3.2.6/src
 [root@dev src]# ./redis-cli
@@ -65,10 +68,10 @@ OK
 "jianxw"
 ```
 
-
-####springboot连接redis集群和对数据进行操作
+#### springboot连接redis集群和对数据进行操作
 
 首先引入需要的jar包：
+
 ```java
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -173,8 +176,7 @@ public class SampleRedisApplication implements CommandLineRunner {
 
 如果输出：“redis里面的spring.boot.redis.test对应的value为：jianxw”，表示redis的操作成功。
 
-
-####通过Cacheable、CachePut、CacheEvict来进行缓存的操作
+#### 通过Cacheable、CachePut、CacheEvict来进行缓存的操作
 
 首先创建缓存的配置类，来设置缓存的时间等信息：
 
@@ -220,6 +222,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 ```
 
 创建user类：
+
 ```java
 
 import org.springframework.data.annotation.Id;
@@ -286,6 +289,7 @@ public class User implements Serializable {
 ```
 
 创建UserService，实现IUserService来进行用户数据的增加、更新和删除的同时更新缓存里面的值：
+
 ```java
 
 import org.springframework.cache.annotation.CacheEvict;
@@ -388,6 +392,7 @@ public class SampleRedisApplication implements CommandLineRunner {
 }
 
 ```
+
 运行结果为：
 
 ```
@@ -413,11 +418,12 @@ public class SampleRedisApplication implements CommandLineRunner {
 
 通过结果可以看到，查询的时候缓存已经起作用，同时更新缓存过后，重新获取数据还是从缓存中取，而且更新的数据已经成功更新，删除缓存过后重新获取的时候需要重新进行缓存。
 
-####项目文件目录结构
+#### 项目文件目录结构
 
 项目的目录结构为：
+
 ![](/img/20161212/spring_boot_redis.png)
 
-####总结
+#### 总结
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文章主要介绍redis简单的操作以及对象的缓存操作，redis集群配置优化这些没有进行介绍，如果感兴趣的可以参照文档：https://redis.io/topics/cluster-tutorial。

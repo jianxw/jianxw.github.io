@@ -6,10 +6,12 @@ tags:
 - spring boot
 categories: mongodb
 ---
+
 　　MongoDB是一个基于分布式文件存储的nosql数据库，文章主要介绍spring boot中如何来连接和使用mongodb，同时对mongodb的安装配置，以及结合spring boot对mongodb具体的操作（增增删改查、模糊查询、根据位置查询、正则表达式查询、分页查询和排序等）进行总结和分享，希望对要在spring boot中使用mongodb来存储数据有一定的帮助。
 
 <!-- more -->
-####安装指南
+
+#### 安装指南
 
 - **安装和启动**
 
@@ -23,17 +25,20 @@ categories: mongodb
 ```
 
 将mongodb加入到环境变量：
+
 ```bash
 [root@dev data]# export PATH=$PATH:/opt/mongodb-linux-x86_64-3.2.11/bin
 ```
 
 启动mongodb和连接mongo：
+
 ```bash
 [root@dev data]# mongod --fork --logpath /var/log/mongodb.log
 [root@dev data]# mongo
 ```
 
 如果出现如下的内容表明连接成功
+
 ```bash
 [root@dev /]# mongo
 MongoDB shell version: 3.2.11
@@ -54,6 +59,7 @@ Server has startup warnings:
 - **修改admin的密码和创建新的库和用户**
 
 修改admin的密码：
+
 ```bash
 
 [root@dev /]# mongo
@@ -81,6 +87,7 @@ Server has startup warnings:
 ```
 
 创建新的数据库和用户名密码：
+
 ```bash
 >use test_wjx;
 >db.createUser(
@@ -104,12 +111,14 @@ Server has startup warnings:
 [root@dev /]# mongo --port 27017 -u wjx -p 123456 --authenticationDatabase test_wjx
 ```
 
-####spring boot中使用mongodb
+#### spring boot中使用mongodb
 
 项目的目录结构：
+
 ![](/img/20161127/spring_boot_mongodb.png)
 
 通过maven引入需要的jar包：
+
 ```java
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -147,6 +156,7 @@ Server has startup warnings:
 ```
 
 配置文件application.properties，增加mongodb的地址配置，连接到新建的mongodb的库test_wjx：
+
 ```java
 spring.data.mongodb.uri=mongodb://wjx:123456@192.168.2.60:27017/test_wjx
 ```
@@ -240,6 +250,7 @@ public class User implements Serializable {
 ```
 
 创建mongodb访问的UserRepository接口，代码为：
+
 ```java
 package com.jianxw.mongo;
 
@@ -301,6 +312,7 @@ public interface UserRepository extends MongoRepository<User, String> {
 ```
 
 建立SpringBoot启动类，初始化连接mongodb的容器，同时调用数据访问层对数据库进行增删改查（包含模糊查询、位置查询、范围查询等）：
+
 ```java
 
 package com.jianxw.mongo;
@@ -446,7 +458,8 @@ public class SampleMongoApplication implements CommandLineRunner {
 ```
 
 由于代码中要进行根据地理位置的匹配，需要增加根据坐标查询需要的mongodb数据库的"2d"索引：
-```
+
+```bash
 > db.user.createIndex( { location : "2d" } );
 
 > db.user.getIndexes();
@@ -470,6 +483,6 @@ public class SampleMongoApplication implements CommandLineRunner {
 ]
 ```
 
-####总结
+#### 总结
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;spring-data-mongodb的MongoRepository暂时不支持对数据进行更新操作，所以用的MongoTemplate.update进行数据的更新。文章主要是对mongodb的使用进行了介绍，比如增删改查、模糊查询、范围查询、正则表达式查询、分页查询排序等。
