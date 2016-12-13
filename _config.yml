@@ -9,7 +9,7 @@ highlighter: pygments
 permalink: /:categories/:year/:month/:day/:title 
 
 #### Markdown Processors
-markdown: kramdown
+markdown: redcarpet
 kramdown:
   input: GFM
   syntax_highlighter: rouge
