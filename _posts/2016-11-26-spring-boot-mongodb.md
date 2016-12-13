@@ -9,7 +9,7 @@ categories: mongodb
 　　MongoDB是一个基于分布式文件存储的nosql数据库，文章主要介绍spring boot中如何来连接和使用mongodb，同时对mongodb的安装配置，以及结合spring boot对mongodb具体的操作（增增删改查、模糊查询、根据位置查询、正则表达式查询、分页查询和排序等）进行总结和分享，希望对要在spring boot中使用mongodb来存储数据有一定的帮助。
 
 <!-- more -->
-###安装指南
+####安装指南
 
 - **安装和启动**
 
@@ -17,24 +17,24 @@ categories: mongodb
 
 解压和放到对应目录以及创建mongodb的数据存放目录：
 
-```
+```bash
 [root@dev data]# tar -xzf mongodb-linux-x86_64-3.2.11.tgz
 [root@dev data]# mv mongodb-linux-x86_64-3.2.11 /opt/ -rf
 ```
 
 将mongodb加入到环境变量：
-```
+```bash
 [root@dev data]# export PATH=$PATH:/opt/mongodb-linux-x86_64-3.2.11/bin
 ```
 
 启动mongodb和连接mongo：
-```
+```bash
 [root@dev data]# mongod --fork --logpath /var/log/mongodb.log
 [root@dev data]# mongo
 ```
 
 如果出现如下的内容表明连接成功
-```
+```bash
 [root@dev /]# mongo
 MongoDB shell version: 3.2.11
 connecting to: test
@@ -54,7 +54,7 @@ Server has startup warnings:
 - **修改admin的密码和创建新的库和用户**
 
 修改admin的密码：
-```
+```bash
 
 [root@dev /]# mongo
 MongoDB shell version: 3.2.11
@@ -81,7 +81,7 @@ Server has startup warnings:
 ```
 
 创建新的数据库和用户名密码：
-```
+```bash
 >use test_wjx;
 >db.createUser(
   {
@@ -94,17 +94,17 @@ Server has startup warnings:
 
 通过如下命令让用户和密码生效：
 
-```
+```bash
 [root@dev /]# mongod --auth --port 27017 --dbpath /data/db
 ```
 
 用对应的用户名和密码登录：
 
-```
+```bash
 [root@dev /]# mongo --port 27017 -u wjx -p 123456 --authenticationDatabase test_wjx
 ```
 
-###spring boot中使用mongodb
+####spring boot中使用mongodb
 
 项目的目录结构：
 ![](/img/20161127/spring_boot_mongodb.png)
@@ -470,5 +470,6 @@ public class SampleMongoApplication implements CommandLineRunner {
 ]
 ```
 
-###总结
+####总结
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;spring-data-mongodb的MongoRepository暂时不支持对数据进行更新操作，所以用的MongoTemplate.update进行数据的更新。文章主要是对mongodb的使用进行了介绍，比如增删改查、模糊查询、范围查询、正则表达式查询、分页查询排序等。

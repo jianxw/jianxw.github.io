@@ -18,18 +18,18 @@ categories: redis
 
 解压到目录：
 
-```
+```bash
 [root@dev opt]# tar -xzf redis-3.2.6.tar.gz
 ```
 
 启动redis
-```
+```bash
 [root@dev opt]# cd redis-3.2.6/src
 [root@dev src]# ./redis-server &
 ```
 
 如果出现如下的内容表示启动成功
-```
+```bash
                 _._
            _.-``__ ''-._
       _.-``    `.  `_.  ''-._           Redis 3.2.6 (00000000/0) 64 bit
@@ -56,7 +56,7 @@ categories: redis
 ```
 
 连接redis并且保存数据
-```
+```bash
 [root@dev src]# cd redis-3.2.6/src
 [root@dev src]# ./redis-cli
 127.0.0.1:6379> set test jianxw
