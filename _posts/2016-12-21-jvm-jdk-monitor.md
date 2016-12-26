@@ -227,5 +227,5 @@ Full thread dump Java HotSpot(TM) 64-Bit Server VM (24.79-b02 mixed mode):
 ~~~~~
 
 ### 可视化监控工具
-*
+* JConsole 基于JMX的可视化监视、管理工具
 
