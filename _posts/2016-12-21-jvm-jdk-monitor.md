@@ -1,6 +1,6 @@
 ---
 layout: post
-title: jvm之JDK的监控工具
+title: 虚拟机性能监控工具介绍和使用
 published: true
 tags:
 - java
@@ -9,7 +9,9 @@ tags:
 categories: jvm
 ---
 
-### JDK的监控工具
+　　文章主要介绍JDK的命令行监控工具jps、jmap、jstack、jhat的介绍，以及可视化工具jconsle和visualvm的介绍和使用。
+
+### JDK命令行工具
 * jps工具
 
 　　JVM Process Status Tool 显示制定系统中所有HotSpot虚拟机进程。
@@ -79,6 +81,7 @@ FGCT    从应用程序启动到采样时old代(全gc)gc所用时间(s)
 GCT     从应用程序启动到采样时gc用的总时间(s)
 
 * Jmap工具
+
 　　Memory map for java， 生成虚拟机的内存转储快照（heapdump文件）;也可以设置在outofmemory的时候生成heapdump文件：-XX:+HeapDumpOutOfMemoryError；jmap不仅能生成dump文件，还阔以查询finalize执行队列、Java堆和永久代的详细信息，如当前使用率、当前使用的是哪种收集器等。
 Jmap命令格式为：
 
@@ -99,10 +102,13 @@ option可选值为：
 | -F | 当-dump没有响应时，强制生成dump快照。只在linux和Solaris系统上有效 |
 
 jmap例子：
+
 ~~~~~
 jmap -dump:live,format=b,file=dump.hprof 28920
 ~~~~~
+
 结果为：
+
 ~~~~~
 
 [root@dev tmp]$ jmap -dump:live,format=b,file=dump.hprof 2225
@@ -111,10 +117,12 @@ Heap dump file created
 [root@dev tmp]$ ls
 
 ~~~~~
+
 这个生成的文件需要通过下面要介绍的jhat工具来查看。
 
 
 * jhat工具
+
 　　JVM Heap Dump Browser，用户分析heapdump文件，会创建一个HTTP/HTML服务器，让用户可以在浏览器上面查看结果；
 通过jhat来查看上面生成的dump.hprof文件：
 ~~~~~
@@ -142,6 +150,7 @@ Server is ready.
 
 
 * jstack
+
 　　Stack Trace For Java，显示虚拟机的线程快照。
 
 jstack命令格式为：
@@ -227,6 +236,7 @@ Full thread dump Java HotSpot(TM) 64-Bit Server VM (24.79-b02 mixed mode):
 ~~~~~
 
 ### 可视化监控工具
+
 * JConsole工具
 　　基于JMX的可视化监视、管理工具，能够比较好的监控堆内存、线程等情况。
 
