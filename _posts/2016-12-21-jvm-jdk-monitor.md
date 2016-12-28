@@ -105,10 +105,10 @@ jmap -dump:live,format=b,file=dump.hprof 28920
 结果为：
 ~~~~~
 
-[finance@dev tmp]$ jmap -dump:live,format=b,file=dump.hprof 2225
+[root@dev tmp]$ jmap -dump:live,format=b,file=dump.hprof 2225
 Dumping heap to /tmp/dump.hprof ...
 Heap dump file created
-[finance@dev tmp]$ ls
+[root@dev tmp]$ ls
 
 ~~~~~
 这个生成的文件需要通过下面要介绍的jhat工具来查看。
@@ -118,7 +118,7 @@ Heap dump file created
 　　JVM Heap Dump Browser，用户分析heapdump文件，会创建一个HTTP/HTML服务器，让用户可以在浏览器上面查看结果；
 通过jhat来查看上面生成的dump.hprof文件：
 ~~~~~
-[finance@dev tmp]$ jhat dump.hprof
+[root@dev tmp]$ jhat dump.hprof
 Reading from dump.hprof...
 Dump file created Thu Dec 22 22:27:10 CST 2016
 Snapshot read, resolving...
@@ -227,5 +227,9 @@ Full thread dump Java HotSpot(TM) 64-Bit Server VM (24.79-b02 mixed mode):
 ~~~~~
 
 ### 可视化监控工具
-* JConsole 基于JMX的可视化监视、管理工具
+* JConsole工具
+　　基于JMX的可视化监视、管理工具，能够比较好的监控堆内存、线程等情况。
 
+
+* visualvm工具
+　　集成多个JDK命令行工具的可视化工具，它能为您提供强大的分析能力，对Java应用程序做性能分析和调优，并且有丰富的插件，也是笔者开发过程中用到的内存跟踪工具。
