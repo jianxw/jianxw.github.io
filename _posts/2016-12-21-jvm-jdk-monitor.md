@@ -9,7 +9,7 @@ tags:
 categories: jvm
 ---
 
-　　文章主要介绍JDK的命令行监控工具jps、jmap、jstack、jhat的介绍，以及可视化工具jconsle和visualvm的介绍和使用。
+　　文章主要介绍JDK的命令行监控工具jps、jmap、jstack、jhat以及可视化工具jconsle和visualvm的介绍和使用。
 
 ### JDK命令行工具
 * jps工具
